@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Modular Imposter Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: left;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .demo-notice {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Modular Imposter Game</h1>
+        <p style="color: white; font-size: 1.2rem; margin-bottom: 2rem;">A multiplayer game with clean, modular architecture</p>
+        
+        <div class="card">
+            <h2>🚀 Quick Start</h2>
+            <p>To play the full multiplayer game, you need to run the server locally:</p>
+            
+            <div class="code-block">
+# Clone the repository
+git clone https://github.com/Reem2411/imposter-game.git
+cd imposter-game
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
+
+# Open http://localhost:3000 in your browser
+            </div>
+            
+            <a href="https://github.com/Reem2411/imposter-game" class="btn">📁 View on GitHub</a>
+            <a href="public/index-static.html" class="btn">🎮 Demo Interface</a>
+        </div>
+
+        <div class="demo-notice">
+            <h3>⚠️ Demo Notice</h3>
+            <p>This is a static demo. The full multiplayer functionality requires running the Node.js server locally.</p>
+            <p>Click "Demo Interface" above to see the game UI, or follow the setup instructions to play with friends!</p>
+        </div>
+
+        <div class="card">
+            <h2>✨ Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>🏗️ Modular Architecture</h3>
+                    <p>Clean component-based structure for easy debugging and customization</p>
+                </div>
+                <div class="feature">
+                    <h3>🎨 Easy Customization</h3>
+                    <p>Modular CSS system allows for easy theme switching</p>
+                </div>
+                <div class="feature">
+                    <h3>🔧 Debug-Friendly</h3>
+                    <p>Comprehensive logging and debugging tools</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Works perfectly on mobile and desktop</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎮 How to Play</h2>
+            <ol style="text-align: left; display: inline-block;">
+                <li><strong>Create Session:</strong> One player creates a session and shares the code</li>
+                <li><strong>Join Players:</strong> Others join using the session code</li>
+                <li><strong>Start Game:</strong> Host starts when 3+ players are ready</li>
+                <li><strong>Find Imposter:</strong> All players except one know the secret word</li>
+                <li><strong>Vote:</strong> Players vote to eliminate who they think is the imposter</li>
+                <li><strong>Results:</strong> See if the imposter was caught!</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ Technology Stack</h2>
+            <p><strong>Backend:</strong> Node.js, Express, Socket.IO</p>
+            <p><strong>Frontend:</strong> Vanilla JavaScript (ES6+), HTML5, CSS3</p>
+            <p><strong>Architecture:</strong> Modular component system</p>
+        </div>
+
+        <div class="card">
+            <h2>📚 Documentation</h2>
+            <p>Check out the comprehensive documentation in the repository:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><strong>README.md:</strong> Complete setup and usage guide</li>
+                <li><strong>ARCHITECTURE.md:</strong> Detailed architecture documentation</li>
+                <li><strong>Customization:</strong> How to add themes and components</li>
+                <li><strong>Debugging:</strong> Tools and techniques for debugging</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 3rem; padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 12px;">
+            <h3 style="color: white;">🎯 Ready to Play?</h3>
+            <p style="color: white;">Follow the setup instructions above to start playing with friends!</p>
+            <a href="https://github.com/Reem2411/imposter-game" class="btn" style="background: #28a745;">⭐ Star on GitHub</a>
+        </div>
+    </div>
+</body>
+</html>

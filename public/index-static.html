@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imposter Game - Demo</title>
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/screens.css">
+    
+    <!-- Custom Theme (uncomment to use) -->
+    <!-- <link rel="stylesheet" href="css/custom-theme.css"> -->
+</head>
+<body>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="container">
+                <h1>🎭 Imposter Game</h1>
+                <p>Can you find the imposter among your friends?</p>
+                
+                <div class="form-group">
+                    <label for="player-name">Your Name:</label>
+                    <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+                </div>
+                
+                <div class="button-group">
+                    <button id="create-session-btn" class="btn btn-primary">Create New Session</button>
+                    <button id="join-session-btn" class="btn btn-secondary">Join Session</button>
+                </div>
+                
+                <div id="join-form" class="join-form hidden">
+                    <div class="form-group">
+                        <label for="session-id">Session Code:</label>
+                        <input type="text" id="session-id" placeholder="Enter session code" maxlength="8">
+                    </div>
+                    <button id="join-confirm-btn" class="btn btn-primary">Join Game</button>
+                    <button id="cancel-join-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+                
+                <div class="demo-notice" style="margin-top: 2rem; padding: 1rem; background: rgba(255, 193, 7, 0.1); border: 2px solid #ffc107; border-radius: 8px; text-align: center;">
+                    <h3>🚀 Demo Version</h3>
+                    <p>This is a static demo. For full multiplayer functionality, you need to run the server locally.</p>
+                    <p><strong>To play with friends:</strong></p>
+                    <ol style="text-align: left; display: inline-block;">
+                        <li>Clone the repository</li>
+                        <li>Run <code>npm install</code></li>
+                        <li>Run <code>npm start</code></li>
+                        <li>Open <code>http://localhost:3000</code></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other screens are hidden in demo -->
+        <div id="lobby-screen" class="screen hidden">
+            <div class="container">
+                <h2>Game Lobby</h2>
+                <p>This is a demo version. Please run the server locally for full functionality.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo script -->
+    <script>
+        // Demo functionality
+        document.getElementById('create-session-btn').addEventListener('click', () => {
+            alert('🚀 Demo Mode: To create a real session, please run the server locally!\n\nRun: npm install && npm start');
+        });
+
+        document.getElementById('join-session-btn').addEventListener('click', () => {
+            document.getElementById('join-form').classList.remove('hidden');
+        });
+
+        document.getElementById('join-confirm-btn').addEventListener('click', () => {
+            alert('🚀 Demo Mode: To join a real session, please run the server locally!\n\nRun: npm install && npm start');
+        });
+
+        document.getElementById('cancel-join-btn').addEventListener('click', () => {
+            document.getElementById('join-form').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
