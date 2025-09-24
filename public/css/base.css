@@ -1,0 +1,73 @@
+/* Base styles and resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Typography */
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,71 @@
+/* Custom Theme Example
+ * This file demonstrates how to easily customize the game's appearance
+ * by overriding the modular CSS files
+ */
+
+/* Dark Theme Override */
+body {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+}
+
+/* Custom Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border: 2px solid #e74c3c;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+/* Custom Word Display */
+.word-display {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    box-shadow: 0 8px 32px rgba(142, 68, 173, 0.3);
+}
+
+/* Custom Player Items */
+.player-item {
+    background: rgba(52, 73, 94, 0.8);
+    color: #ecf0f1;
+    border-left: 4px solid #e74c3c;
+}
+
+.player-item.host {
+    border-left-color: #f39c12;
+}
+
+/* Custom Voting Players */
+.voting-player {
+    background: rgba(52, 73, 94, 0.9);
+    color: #ecf0f1;
+}
+
+.voting-player:hover {
+    border-color: #e74c3c;
+}
+
+.voting-player.selected {
+    border-color: #f39c12;
+    background: rgba(243, 156, 18, 0.2);
+}
+
+/* Custom Results */
+.result-message.win {
+    color: #27ae60;
+}
+
+.result-message.lose {
+    color: #e74c3c;
+}
