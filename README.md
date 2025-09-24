@@ -1,95 +1,166 @@
-# 🎭 Imposter Game Server
+# 🎭 Modular Imposter Game
 
-An online multiplayer game where players try to identify the imposter among them. Similar to Among Us, but with a word-based twist!
+A multiplayer online game where players try to find the imposter among them. Built with a clean, modular architecture for easy debugging, customization, and maintenance.
 
-## How to Play
+## ✨ Features
 
-1. **Create or Join a Session**: One player creates a session and shares the session code with others
-2. **Gather Players**: Wait for at least 3 players to join (up to 10 players)
-3. **Start the Game**: The host clicks "Start Game" to begin
-4. **Find the Imposter**: 
-   - All players except one receive a secret word
-   - One player (the imposter) sees "IMPOSTER" instead of the word
-   - Players discuss and try to figure out who doesn't know the word
-5. **Vote**: When ready, players vote on who they think is the imposter
-6. **Results**: If the imposter is caught, players win! If not, the imposter wins!
+- **Real-time Multiplayer**: Socket.IO powered multiplayer experience
+- **Modular Architecture**: Clean, component-based code structure
+- **Easy Customization**: Modular CSS and component system
+- **Debug-Friendly**: Comprehensive logging and debugging tools
+- **Responsive Design**: Works on mobile and desktop
+- **Session Management**: Unique session codes for easy joining
 
-## Features
+## 🏗️ Architecture
 
-- ✅ Real-time multiplayer gameplay using WebSockets
-- ✅ Session-based rooms with unique codes
-- ✅ Host controls for starting games and new rounds
-- ✅ Responsive design that works on mobile and desktop
-- ✅ Automatic player management and reconnection
-- ✅ Multiple rounds with the same group
-- ✅ Beautiful, modern UI with smooth animations
-
-## Installation & Setup
-
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Start the Server**:
-   ```bash
-   npm start
-   ```
-   
-   Or for development with auto-restart:
-   ```bash
-   npm run dev
-   ```
-
-3. **Open in Browser**:
-   Navigate to `http://localhost:3000`
-
-## Game Rules
-
-- **Minimum Players**: 3 players required to start
-- **Maximum Players**: 15 players per session
-- **Word Selection**: Random words from a curated list
-- **Voting**: Majority vote determines who gets voted out
-- **Winning**: 
-  - Players win if they vote out the imposter
-  - Imposter wins if someone else gets voted out
-- **Rounds**: Host can start new rounds with the same group
-
-## Technical Details
-
-- **Backend**: Node.js with Express and Socket.IO
-- **Frontend**: Vanilla HTML, CSS, and JavaScript
-- **Real-time Communication**: WebSocket connections for instant updates
-- **Session Management**: Unique 8-character session codes
-- **Game State**: Server-side state management for consistency
-
-## File Structure
-
+### Component Structure
 ```
-imposter-game/
-├── server.js          # Main server file with game logic
-├── package.json       # Dependencies and scripts
-├── public/
-│   ├── index.html     # Main game interface
-│   ├── style.css      # Styling and responsive design
-│   └── script.js      # Client-side game logic
-└── README.md          # This file
+public/
+├── js/
+│   ├── GameController.js          # Main orchestrator
+│   ├── components/                # Screen components
+│   │   ├── WelcomeScreen.js      # Session creation/joining
+│   │   ├── LobbyScreen.js         # Player waiting room
+│   │   ├── GameScreen.js          # Main game interface
+│   │   ├── VotingScreen.js       # Voting phase
+│   │   ├── ResultsScreen.js       # Game results
+│   │   └── ErrorHandler.js        # Error management
+│   └── utils/                     # Utility modules
+│       ├── SocketManager.js       # Socket.IO wrapper
+│       └── ScreenManager.js       # Screen transitions
+├── css/                           # Modular stylesheets
+│   ├── base.css                  # Global styles
+│   ├── components.css            # Reusable components
+│   ├── screens.css               # Screen-specific styles
+│   └── custom-theme.css          # Example custom theme
+└── main.js                       # Application entry point
 ```
 
-## Development
+### Key Benefits
+- **Easy Debugging**: Each component can be debugged independently
+- **Easy Customization**: Override specific CSS files for custom themes
+- **Maintainable**: Single responsibility principle
+- **Extensible**: Add new features by creating new components
 
-The server runs on port 3000 by default. You can change this by setting the `PORT` environment variable:
+## 🚀 Quick Start
 
+### Installation
 ```bash
-PORT=8080 npm start
+# Clone the repository
+git clone <repository-url>
+cd imposter-game
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
 ```
 
-## Game Flow
+### Access the Game
+Open your browser to `http://localhost:3000`
 
-1. **Welcome Screen**: Enter name and create/join session
-2. **Lobby**: See all players and wait for host to start
-3. **Game Screen**: See your word (or "IMPOSTER" if you're the imposter)
-4. **Voting Screen**: Vote on who you think is the imposter
-5. **Results Screen**: See who won and start a new round
+## 🎮 How to Play
 
-Enjoy playing the Imposter Game! 🎮
+1. **Create or Join**: One player creates a session, others join with the session code
+2. **Wait for Players**: Need at least 3 players to start
+3. **Game Begins**: A random word is chosen, one player becomes the imposter
+4. **Discussion**: Players discuss the word (imposter tries to blend in)
+5. **Voting**: Players vote to eliminate who they think is the imposter
+6. **Results**: See if the imposter was caught or got away!
+
+## 🎨 Customization
+
+### Adding Custom Themes
+1. Create a new CSS file in the `css/` directory
+2. Override the existing styles
+3. Include it in `index.html` after the modular CSS files
+
+Example:
+```html
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/my-custom-theme.css">
+```
+
+### Adding New Components
+1. Create a new component file in `js/components/`
+2. Add it to the GameController
+3. Include it in the HTML script loading
+
+### Debugging
+- Use browser console to see detailed logs
+- Run `testMessageVisibility()` in console to test message display
+- Check component-specific logs for targeted debugging
+
+## 🔧 Development
+
+### Project Structure
+- **Server**: `server.js` - Express server with Socket.IO
+- **Client**: `public/` - Modular frontend architecture
+- **Components**: Individual screen components with clear responsibilities
+- **Utilities**: Reusable modules for common functionality
+
+### Key Files
+- `GameController.js`: Main game orchestrator
+- `SocketManager.js`: Socket.IO communication wrapper
+- `ScreenManager.js`: Screen transition management
+- Component files: Individual screen logic
+
+## 🐛 Debugging Tools
+
+### Console Logging
+- Game state changes
+- Socket events
+- Component interactions
+- Message visibility testing
+
+### Debug Functions
+```javascript
+// Test message visibility
+testMessageVisibility()
+
+// Check game state
+gameController.getGameState()
+```
+
+## 📱 Responsive Design
+
+- Mobile-first approach
+- Touch-friendly interface
+- Adaptive layouts
+- Cross-platform compatibility
+
+## 🛠️ Technology Stack
+
+- **Backend**: Node.js, Express, Socket.IO
+- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
+- **Real-time**: WebSockets via Socket.IO
+- **Architecture**: Modular component system
+
+## 🎯 Game Rules
+
+- **Minimum Players**: 3 players required
+- **Imposter Selection**: Random selection each round
+- **Word Knowledge**: All players except imposter know the word
+- **Voting**: Majority vote determines elimination
+- **Winning**: Imposter wins if not caught, players win if imposter is found
+
+## 📝 License
+
+MIT License - feel free to use and modify!
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+---
+
+**Enjoy playing the Modular Imposter Game! 🎭**
+
+*Built with ❤️ and clean architecture principles*
