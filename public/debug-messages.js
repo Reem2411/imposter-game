@@ -40,3 +40,4 @@ function testMessageVisibility() {
 window.testMessageVisibility = testMessageVisibility;
 
 console.log('Debug script loaded. Run testMessageVisibility() to test message visibility.');
+
