@@ -97,23 +97,42 @@ class Session {
       player.isImposter = false;
     }
     
-    // Select a random player as imposter (excluding host if possible)
-    const playerIds = Array.from(this.players.keys());
-    let imposterId;
+    // Calculate number of imposters: 1 imposter for 1-7 players, 2 imposters for 8+ players
+    const totalPlayers = this.players.size;
+    const imposterCount = totalPlayers >= 8 ? 2 : 1;
     
-    // If we have more than 2 players, try to avoid selecting the host
-    if (playerIds.length > 2) {
-      const nonHostPlayers = playerIds.filter(id => id !== this.hostId);
-      imposterId = nonHostPlayers[Math.floor(Math.random() * nonHostPlayers.length)];
-    } else {
-      // If only 2 players, select randomly
-      imposterId = playerIds[Math.floor(Math.random() * playerIds.length)];
+    console.log(`Session ${this.id}: Selecting ${imposterCount} imposters from ${totalPlayers} players`);
+    
+    // Get all player IDs
+    const playerIds = Array.from(this.players.keys());
+    const selectedImposters = [];
+    
+    // Select imposters
+    for (let i = 0; i < imposterCount; i++) {
+      let imposterId;
+      
+      // Try to avoid selecting the host if we have enough players
+      if (playerIds.length > imposterCount && i === 0) {
+        const nonHostPlayers = playerIds.filter(id => id !== this.hostId && !selectedImposters.includes(id));
+        if (nonHostPlayers.length > 0) {
+          imposterId = nonHostPlayers[Math.floor(Math.random() * nonHostPlayers.length)];
+        } else {
+          imposterId = playerIds.filter(id => !selectedImposters.includes(id))[Math.floor(Math.random() * (playerIds.length - selectedImposters.length))];
+        }
+      } else {
+        const availablePlayers = playerIds.filter(id => !selectedImposters.includes(id));
+        imposterId = availablePlayers[Math.floor(Math.random() * availablePlayers.length)];
+      }
+      
+      selectedImposters.push(imposterId);
+      this.players.get(imposterId).isImposter = true;
     }
     
-    this.imposterId = imposterId;
-    this.players.get(imposterId).isImposter = true;
+    // Store the first imposter as the main imposterId for backward compatibility
+    this.imposterId = selectedImposters[0];
     
-    console.log(`Session ${this.id}: Selected imposter: ${this.players.get(imposterId).name} (${imposterId})`);
+    const imposterNames = selectedImposters.map(id => this.players.get(id).name);
+    console.log(`Session ${this.id}: Selected imposters: ${imposterNames.join(', ')}`);
   }
 
   refreshGame() {
@@ -265,21 +284,23 @@ io.on('connection', (socket) => {
     }
 
     if (session.startGame()) {
-      // Send word to all players except imposter
+      // Send word to all players
       for (const [playerId, player] of session.players) {
         if (player.isImposter) {
           io.to(playerId).emit('game-started', { 
             isImposter: true, 
             word: '', // No word for imposters
             round: session.round,
-            isHost: player.isHost
+            isHost: player.isHost,
+            imposterCount: Array.from(session.players.values()).filter(p => p.isImposter).length
           });
         } else {
           io.to(playerId).emit('game-started', { 
             isImposter: false, 
             word: session.currentWord,
             round: session.round,
-            isHost: player.isHost
+            isHost: player.isHost,
+            imposterCount: Array.from(session.players.values()).filter(p => p.isImposter).length
           });
         }
       }
@@ -326,14 +347,15 @@ io.on('connection', (socket) => {
     
     // Send updated game data to all players
     session.players.forEach((player, playerId) => {
-      const isImposter = playerId === session.imposterId;
+      const isImposter = player.isImposter;
       io.to(playerId).emit('game-started', {
         word: isImposter ? '' : refreshData.word, // No word for imposters
         isImposter: isImposter,
         players: refreshData.players,
         round: refreshData.round,
         isHost: player.isHost,
-        usedWords: refreshData.usedWords
+        usedWords: refreshData.usedWords,
+        imposterCount: Array.from(session.players.values()).filter(p => p.isImposter).length
       });
     });
   });

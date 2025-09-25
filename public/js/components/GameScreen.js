@@ -53,6 +53,14 @@ class GameScreen {
     updateGameInfo(gameData) {
         this.elements.currentRound.textContent = gameData.round;
         this.elements.gameWord.textContent = gameData.word;
+        
+        // Update imposter count display if available
+        if (gameData.imposterCount) {
+            const imposterCountElement = document.getElementById('imposter-count');
+            if (imposterCountElement) {
+                imposterCountElement.textContent = `${gameData.imposterCount} imposter${gameData.imposterCount > 1 ? 's' : ''}`;
+            }
+        }
     }
 
     updatePlayerRole(isImposter) {
