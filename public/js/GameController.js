@@ -77,6 +77,10 @@ class GameController {
         this.socketManager.on('error', (data) => {
             this.showError(data.message);
         });
+
+        this.socketManager.on('ready-count-updated', (data) => {
+            this.gameScreen.updateReadyCount(data.readyCount);
+        });
     }
 
     // Game actions

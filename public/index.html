@@ -87,7 +87,17 @@
                 </div>
                 
                 <div class="game-actions">
-                    <button id="ready-to-vote-btn" class="btn btn-warning">Ready to Vote Out the Imposter</button>
+                    <div class="ready-vote-container">
+                        <button id="ready-to-vote-btn" class="ready-vote-btn">
+                            <span class="btn-icon">🗳️</span>
+                            <span class="btn-text">Ready to Vote?</span>
+                            <span class="btn-status">Click when ready!</span>
+                        </button>
+                        <div class="ready-counter">
+                            <span class="counter-number" id="ready-count">0</span>
+                            <span class="counter-text">players ready</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="players-status">

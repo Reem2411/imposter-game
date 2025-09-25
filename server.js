@@ -251,6 +251,12 @@ io.on('connection', (socket) => {
       io.to(session.id).emit('voting-started', {
         players: Array.from(session.players.values())
       });
+    } else {
+      // Send updated ready count to all players
+      io.to(session.id).emit('ready-count-updated', {
+        readyCount: session.readyToVote.size,
+        totalPlayers: session.players.size
+      });
     }
   });
 

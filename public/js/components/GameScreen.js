@@ -16,13 +16,18 @@ class GameScreen {
             imposterMessage: document.getElementById('imposter-message'),
             playerMessage: document.getElementById('player-message'),
             readyToVoteBtn: document.getElementById('ready-to-vote-btn'),
-            readyPlayers: document.getElementById('ready-players')
+            readyPlayers: document.getElementById('ready-players'),
+            readyCount: document.getElementById('ready-count')
         };
+        this.isReady = false;
     }
 
     attachEventListeners() {
         this.elements.readyToVoteBtn.addEventListener('click', () => {
-            this.gameController.readyToVote();
+            if (!this.isReady) {
+                this.setReadyState(true);
+                this.gameController.readyToVote();
+            }
         });
     }
 
@@ -63,5 +68,39 @@ class GameScreen {
             readyPlayerDiv.textContent = player.name;
             this.elements.readyPlayers.appendChild(readyPlayerDiv);
         });
+        
+        // Update the counter
+        this.updateReadyCount(readyPlayers.length);
+    }
+
+    setReadyState(isReady) {
+        this.isReady = isReady;
+        const btn = this.elements.readyToVoteBtn;
+        const statusText = btn.querySelector('.btn-status');
+        
+        if (isReady) {
+            btn.classList.add('ready');
+            btn.disabled = true;
+            statusText.textContent = "✓ You're ready!";
+        } else {
+            btn.classList.remove('ready');
+            btn.disabled = false;
+            statusText.textContent = "Click when ready!";
+        }
+    }
+
+    updateReadyCount(count) {
+        this.elements.readyCount.textContent = count;
+        
+        // Add animation to counter when it changes
+        this.elements.readyCount.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+            this.elements.readyCount.style.transform = 'scale(1)';
+        }, 200);
+    }
+
+    resetReadyState() {
+        this.setReadyState(false);
+        this.updateReadyCount(0);
     }
 }

@@ -127,6 +127,121 @@
     margin-bottom: 2rem;
 }
 
+/* Ready Vote Button Styles */
+.ready-vote-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.ready-vote-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+    min-width: 280px;
+    overflow: hidden;
+}
+
+.ready-vote-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.ready-vote-btn:hover::before {
+    left: 100%;
+}
+
+.ready-vote-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(255, 107, 107, 0.4);
+}
+
+.ready-vote-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+}
+
+.ready-vote-btn.ready {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    box-shadow: 0 8px 32px rgba(40, 167, 69, 0.3);
+    animation: readyPulse 2s infinite;
+}
+
+.ready-vote-btn.ready:hover {
+    box-shadow: 0 12px 40px rgba(40, 167, 69, 0.4);
+}
+
+@keyframes readyPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    display: block;
+}
+
+.btn-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btn-status {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: normal;
+}
+
+.ready-vote-btn.ready .btn-status {
+    content: "✓ You're ready!";
+}
+
+.ready-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+}
+
+.counter-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.counter-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
 .players-status {
     background: rgba(255, 255, 255, 0.9);
     padding: 1.5rem;
@@ -246,5 +361,22 @@
     
     .voting-players {
         grid-template-columns: 1fr;
+    }
+    
+    .ready-vote-btn {
+        min-width: 250px;
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .ready-counter {
+        padding: 0.5rem 1rem;
+    }
+    
+    .counter-number {
+        font-size: 1.25rem;
+    }
+    
+    .counter-text {
+        font-size: 0.8rem;
     }
 }
