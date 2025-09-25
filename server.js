@@ -39,6 +39,7 @@ class Session {
     this.votes = new Map();
     this.readyToVote = new Set();
     this.round = 1;
+    this.usedWords = []; // Track words used in this session
     
     // Add host as first player
     this.players.set(hostId, {
@@ -75,11 +76,27 @@ class Session {
     }
   }
 
+  getUnusedWord() {
+    // Get all available words that haven't been used
+    const availableWords = words.filter(word => !this.usedWords.includes(word));
+    
+    // If all words have been used, reset the used words list
+    if (availableWords.length === 0) {
+      console.log(`Session ${this.id}: All words used, resetting word list`);
+      this.usedWords = [];
+      return words[Math.floor(Math.random() * words.length)];
+    }
+    
+    // Return a random word from available words
+    return availableWords[Math.floor(Math.random() * availableWords.length)];
+  }
+
   startGame() {
     if (this.players.size < 3) return false; // Need at least 3 players
     
     this.gameState = GAME_STATES.PLAYING;
-    this.currentWord = words[Math.floor(Math.random() * words.length)];
+    this.currentWord = this.getUnusedWord();
+    this.usedWords.push(this.currentWord); // Track this word as used
     
     // Randomly select imposter
     const playerIds = Array.from(this.players.keys());
@@ -88,6 +105,9 @@ class Session {
     
     this.votes.clear();
     this.readyToVote.clear();
+    
+    console.log(`Session ${this.id}: Game started with word "${this.currentWord}" (Round ${this.round})`);
+    console.log(`Session ${this.id}: Used words so far: [${this.usedWords.join(', ')}]`);
     
     return true;
   }
@@ -150,6 +170,8 @@ class Session {
     for (const player of this.players.values()) {
       player.isImposter = false;
     }
+    
+    console.log(`Session ${this.id}: New round ${this.round} prepared. Used words: [${this.usedWords.join(', ')}]`);
   }
 }
 
@@ -247,7 +269,8 @@ io.on('connection', (socket) => {
           isImposterVotedOut: results.isImposterVotedOut,
           voteCounts: results.voteCounts,
           imposter: session.players.get(session.imposterId),
-          word: session.currentWord
+          word: session.currentWord,
+          usedWords: [...session.usedWords] // Send word history to client
         });
       }
     }
