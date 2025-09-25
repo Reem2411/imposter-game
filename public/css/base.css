@@ -10,7 +10,10 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     color: #333;
+    transition: background 0.5s ease;
 }
+
+/* Role-based background colors - removed for consistent background */
 
 .container {
     max-width: 800px;

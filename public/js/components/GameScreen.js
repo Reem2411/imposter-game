@@ -17,7 +17,9 @@ class GameScreen {
             playerMessage: document.getElementById('player-message'),
             readyToVoteBtn: document.getElementById('ready-to-vote-btn'),
             readyPlayers: document.getElementById('ready-players'),
-            readyCount: document.getElementById('ready-count')
+            readyCount: document.getElementById('ready-count'),
+            hostGameControls: document.getElementById('host-game-controls'),
+            refreshGameBtn: document.getElementById('refresh-game-btn')
         };
         this.isReady = false;
     }
@@ -29,15 +31,23 @@ class GameScreen {
                 this.gameController.readyToVote();
             }
         });
+
+        this.elements.refreshGameBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to refresh the game? This will select a new word and reshuffle the imposter/players.')) {
+                this.gameController.refreshGame();
+            }
+        });
     }
 
     show(gameData) {
         console.log('GameScreen show called with data:', gameData);
+        console.log('isHost value:', gameData.isHost);
         this.gameController.hideAllScreens();
         document.getElementById('game-screen').classList.remove('hidden');
         
         this.updateGameInfo(gameData);
         this.updatePlayerRole(gameData.isImposter);
+        this.updateHostControls(gameData.isHost);
     }
 
     updateGameInfo(gameData) {
@@ -51,11 +61,15 @@ class GameScreen {
         if (isImposter) {
             this.elements.imposterMessage.classList.remove('hidden');
             this.elements.playerMessage.classList.add('hidden');
-            console.log('Showing imposter message');
+            // Hide the word display for imposters
+            this.elements.gameWord.parentElement.classList.add('hidden');
+            console.log('Showing imposter message and hiding word');
         } else {
             this.elements.imposterMessage.classList.add('hidden');
             this.elements.playerMessage.classList.remove('hidden');
-            console.log('Showing player message');
+            // Show the word display for regular players
+            this.elements.gameWord.parentElement.classList.remove('hidden');
+            console.log('Showing player message and word');
         }
     }
 
@@ -103,4 +117,16 @@ class GameScreen {
         this.setReadyState(false);
         this.updateReadyCount(0);
     }
+
+    updateHostControls(isHost) {
+        console.log('updateHostControls called with isHost:', isHost);
+        if (isHost) {
+            this.elements.hostGameControls.classList.remove('hidden');
+            console.log('Host controls shown');
+        } else {
+            this.elements.hostGameControls.classList.add('hidden');
+            console.log('Host controls hidden');
+        }
+    }
+
 }

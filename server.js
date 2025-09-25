@@ -91,6 +91,57 @@ class Session {
     return availableWords[Math.floor(Math.random() * availableWords.length)];
   }
 
+  selectImposter() {
+    // Reset all players to not be imposter
+    for (const player of this.players.values()) {
+      player.isImposter = false;
+    }
+    
+    // Select a random player as imposter (excluding host if possible)
+    const playerIds = Array.from(this.players.keys());
+    let imposterId;
+    
+    // If we have more than 2 players, try to avoid selecting the host
+    if (playerIds.length > 2) {
+      const nonHostPlayers = playerIds.filter(id => id !== this.hostId);
+      imposterId = nonHostPlayers[Math.floor(Math.random() * nonHostPlayers.length)];
+    } else {
+      // If only 2 players, select randomly
+      imposterId = playerIds[Math.floor(Math.random() * playerIds.length)];
+    }
+    
+    this.imposterId = imposterId;
+    this.players.get(imposterId).isImposter = true;
+    
+    console.log(`Session ${this.id}: Selected imposter: ${this.players.get(imposterId).name} (${imposterId})`);
+  }
+
+  refreshGame() {
+    console.log(`Session ${this.id}: Refreshing game - new word and reshuffled roles`);
+    
+    // Reset game state
+    this.gameState = GAME_STATES.PLAYING;
+    this.votes.clear();
+    this.readyToVote.clear();
+    
+    // Get a new word
+    this.currentWord = this.getUnusedWord();
+    this.usedWords.push(this.currentWord);
+    
+    // Reshuffle imposter
+    this.selectImposter();
+    
+    console.log(`Session ${this.id}: New word: ${this.currentWord}, Imposter: ${this.imposterId}`);
+    
+    return {
+      word: this.currentWord,
+      imposterId: this.imposterId,
+      players: Array.from(this.players.values()),
+      round: this.round,
+      usedWords: [...this.usedWords]
+    };
+  }
+
   startGame() {
     if (this.players.size < 3) return false; // Need at least 3 players
     
@@ -98,10 +149,8 @@ class Session {
     this.currentWord = this.getUnusedWord();
     this.usedWords.push(this.currentWord); // Track this word as used
     
-    // Randomly select imposter
-    const playerIds = Array.from(this.players.keys());
-    this.imposterId = playerIds[Math.floor(Math.random() * playerIds.length)];
-    this.players.get(this.imposterId).isImposter = true;
+    // Select imposter
+    this.selectImposter();
     
     this.votes.clear();
     this.readyToVote.clear();
@@ -221,14 +270,16 @@ io.on('connection', (socket) => {
         if (player.isImposter) {
           io.to(playerId).emit('game-started', { 
             isImposter: true, 
-            word: 'IMPOSTER',
-            round: session.round
+            word: '', // No word for imposters
+            round: session.round,
+            isHost: player.isHost
           });
         } else {
           io.to(playerId).emit('game-started', { 
             isImposter: false, 
             word: session.currentWord,
-            round: session.round
+            round: session.round,
+            isHost: player.isHost
           });
         }
       }
@@ -258,6 +309,33 @@ io.on('connection', (socket) => {
         totalPlayers: session.players.size
       });
     }
+  });
+
+  socket.on('refresh-game', (data) => {
+    const session = sessions.get(data.sessionId);
+    if (!session) return;
+
+    // Only the host can refresh the game
+    const player = session.players.get(socket.id);
+    if (!player || !player.isHost) {
+      socket.emit('error', { message: 'Only the host can refresh the game' });
+      return;
+    }
+
+    const refreshData = session.refreshGame();
+    
+    // Send updated game data to all players
+    session.players.forEach((player, playerId) => {
+      const isImposter = playerId === session.imposterId;
+      io.to(playerId).emit('game-started', {
+        word: isImposter ? '' : refreshData.word, // No word for imposters
+        isImposter: isImposter,
+        players: refreshData.players,
+        round: refreshData.round,
+        isHost: player.isHost,
+        usedWords: refreshData.usedWords
+      });
+    });
   });
 
   socket.on('cast-vote', (data) => {

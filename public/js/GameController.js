@@ -116,6 +116,10 @@ class GameController {
         this.socketManager.emit('start-new-round', { sessionId: this.gameState.currentSession });
     }
 
+    refreshGame() {
+        this.socketManager.emit('refresh-game', { sessionId: this.gameState.currentSession });
+    }
+
     // Utility methods
     getGameState() {
         return this.gameState;
