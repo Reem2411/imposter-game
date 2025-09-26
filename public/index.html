@@ -72,9 +72,6 @@
                     <div class="word-display">
                         <span id="game-word">WORD</span>
                     </div>
-                    <div class="imposter-info">
-                        <span id="imposter-count">1 imposter</span>
-                    </div>
                 </div>
                 
                 <div class="game-content">
@@ -84,8 +81,8 @@
                     </div>
                     
                     <div id="player-message" class="player-message hidden">
-                        <h3>Find the Imposter!</h3>
-                        <p>One of your teammates doesn't know the word. Can you find them?</p>
+                        <h3>Find the Imposter<span id="imposter-suffix">s</span>!</h3>
+                        <p><span id="imposter-count-text">One</span> of your teammates doesn't know the word. Can you find them?</p>
                     </div>
                 </div>
                 
@@ -108,13 +105,6 @@
                             <span class="btn-text">Refresh Game</span>
                             <span class="btn-status">New word & roles</span>
                         </button>
-                    </div>
-                </div>
-                
-                <div class="players-status">
-                    <h4>Players Ready to Vote:</h4>
-                    <div id="ready-players" class="ready-players">
-                        <!-- Ready players will be shown here -->
                     </div>
                 </div>
             </div>

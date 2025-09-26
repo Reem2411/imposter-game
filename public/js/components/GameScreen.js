@@ -19,7 +19,10 @@ class GameScreen {
             readyPlayers: document.getElementById('ready-players'),
             readyCount: document.getElementById('ready-count'),
             hostGameControls: document.getElementById('host-game-controls'),
-            refreshGameBtn: document.getElementById('refresh-game-btn')
+            refreshGameBtn: document.getElementById('refresh-game-btn'),
+            imposterSuffix: document.getElementById('imposter-suffix'),
+            imposterCountText: document.getElementById('imposter-count-text'),
+            imposterPronoun: document.getElementById('imposter-pronoun')
         };
         this.isReady = false;
     }
@@ -54,12 +57,19 @@ class GameScreen {
         this.elements.currentRound.textContent = gameData.round;
         this.elements.gameWord.textContent = gameData.word;
         
-        // Update imposter count display if available
+        // Update imposter message based on count
         if (gameData.imposterCount) {
-            const imposterCountElement = document.getElementById('imposter-count');
-            if (imposterCountElement) {
-                imposterCountElement.textContent = `${gameData.imposterCount} imposter${gameData.imposterCount > 1 ? 's' : ''}`;
-            }
+            this.updateImposterMessage(gameData.imposterCount);
+        }
+    }
+
+    updateImposterMessage(imposterCount) {
+        if (imposterCount === 1) {
+            this.elements.imposterSuffix.textContent = '';
+            this.elements.imposterCountText.textContent = 'One';
+        } else {
+            this.elements.imposterSuffix.textContent = 's';
+            this.elements.imposterCountText.textContent = 'Two';
         }
     }
 
