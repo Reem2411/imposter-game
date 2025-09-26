@@ -4,6 +4,13 @@ const socketIo = require('socket.io');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
+// Game Configuration - Adjust these for development
+const GAME_CONFIG = {
+  MIN_PLAYERS: 1,        // Minimum players required to start game
+  MAX_PLAYERS: 15,       // Maximum players allowed in a session
+  IMPOSTER_THRESHOLD: 8  // Number of players needed for 2 imposters (8+ = 2 imposters)
+};
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -51,7 +58,7 @@ class Session {
   }
 
   addPlayer(playerId, playerName) {
-    if (this.players.size >= 15) return false; // Max 15 players
+    if (this.players.size >= GAME_CONFIG.MAX_PLAYERS) return false; // Max players limit
     if (this.gameState !== GAME_STATES.WAITING) return false;
     
     this.players.set(playerId, {
@@ -97,9 +104,9 @@ class Session {
       player.isImposter = false;
     }
     
-    // Calculate number of imposters: 1 imposter for 1-7 players, 2 imposters for 8+ players
+    // Calculate number of imposters: 1 imposter below threshold, 2 imposters at threshold+
     const totalPlayers = this.players.size;
-    const imposterCount = totalPlayers >= 8 ? 2 : 1;
+    const imposterCount = totalPlayers >= GAME_CONFIG.IMPOSTER_THRESHOLD ? 2 : 1;
     
     console.log(`Session ${this.id}: Selecting ${imposterCount} imposters from ${totalPlayers} players`);
     
@@ -162,7 +169,7 @@ class Session {
   }
 
   startGame() {
-    if (this.players.size < 3) return false; // Need at least 3 players
+    if (this.players.size < GAME_CONFIG.MIN_PLAYERS) return false; // Need at least minimum players
     
     this.gameState = GAME_STATES.PLAYING;
     this.currentWord = this.getUnusedWord();
