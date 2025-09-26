@@ -10,6 +10,11 @@ A multiplayer online game where players try to find the imposter among them. Bui
 - **Debug-Friendly**: Comprehensive logging and debugging tools
 - **Responsive Design**: Works on mobile and desktop
 - **Session Management**: Unique session codes for easy joining
+- **Multi-Imposter System**: Scales imposters based on group size
+- **Word Tracking**: Prevents word repetition within sessions
+- **Host Controls**: Refresh game with new word and roles
+- **Auto-Refresh Development**: Automatic server restart during development
+- **Configurable Limits**: Adjustable player limits for testing
 
 ## 🏗️ Architecture
 
@@ -59,6 +64,32 @@ npm start
 
 ### Access the Game
 Open your browser to `http://localhost:3000`
+
+## 🔧 Development
+
+### Development Mode with Auto-Refresh
+For development with automatic server restart when files change:
+
+```bash
+# Development mode with auto-refresh
+npm run dev
+```
+
+This will:
+- Watch for changes in `server.js`, JavaScript, CSS, and HTML files
+- Automatically restart the server when you save changes
+- Ignore unnecessary files like `node_modules`
+
+### Available Scripts
+- `npm start` - Production mode (no auto-refresh)
+- `npm run dev` - Development mode with auto-refresh
+- `npm run dev:watch` - Alternative watch mode (watches all files in public/)
+
+### Configuration
+The auto-refresh behavior is configured in `nodemon.json`:
+- Watches: `server.js`, `public/**/*.js`, `public/**/*.css`, `public/**/*.html`
+- Ignores: `node_modules` and other unnecessary files
+- Delay: 1 second to prevent rapid restarts
 
 ## 🎮 How to Play
 
@@ -141,11 +172,15 @@ gameController.getGameState()
 
 ## 🎯 Game Rules
 
-- **Minimum Players**: 3 players required
-- **Imposter Selection**: Random selection each round
-- **Word Knowledge**: All players except imposter know the word
+- **Player Limits**: Configurable minimum and maximum players (default: 1-15)
+- **Imposter System**: 
+  - 1-7 players: 1 imposter
+  - 8+ players: 2 imposters
+- **Imposter Selection**: Random selection each round (tries to avoid host)
+- **Word Knowledge**: All players except imposters know the word
 - **Voting**: Majority vote determines elimination
-- **Winning**: Imposter wins if not caught, players win if imposter is found
+- **Winning**: Imposters win if not caught, players win if imposters are found
+- **Refresh Game**: Host can refresh with new word and reshuffled roles
 
 ## 📝 License
 
