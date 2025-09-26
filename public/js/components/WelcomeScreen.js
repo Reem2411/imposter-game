@@ -12,31 +12,54 @@ class WelcomeScreen {
     initializeElements() {
         this.elements = {
             playerNameInput: document.getElementById('player-name'),
+            sessionCodeInput: document.getElementById('session-code'),
             createSessionBtn: document.getElementById('create-session-btn'),
-            joinSessionBtn: document.getElementById('join-session-btn'),
-            joinForm: document.getElementById('join-form'),
-            sessionIdInput: document.getElementById('session-id'),
-            joinConfirmBtn: document.getElementById('join-confirm-btn'),
-            cancelJoinBtn: document.getElementById('cancel-join-btn')
+            joinSessionBtn: document.getElementById('join-session-btn')
         };
     }
 
     attachEventListeners() {
+        // Input validation
+        this.elements.playerNameInput.addEventListener('input', () => {
+            this.updateButtonStates();
+        });
+
+        this.elements.sessionCodeInput.addEventListener('input', () => {
+            this.updateButtonStates();
+        });
+
+        // Button clicks
         this.elements.createSessionBtn.addEventListener('click', () => {
             this.handleCreateSession();
         });
 
         this.elements.joinSessionBtn.addEventListener('click', () => {
-            this.showJoinForm();
-        });
-
-        this.elements.joinConfirmBtn.addEventListener('click', () => {
             this.handleJoinSession();
         });
 
-        this.elements.cancelJoinBtn.addEventListener('click', () => {
-            this.hideJoinForm();
+        // Enter key support
+        this.elements.playerNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !this.elements.createSessionBtn.disabled) {
+                this.handleCreateSession();
+            }
         });
+
+        this.elements.sessionCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !this.elements.joinSessionBtn.disabled) {
+                this.handleJoinSession();
+            }
+        });
+    }
+
+    updateButtonStates() {
+        const hasName = this.elements.playerNameInput.value.trim().length > 0;
+        const hasSessionCode = this.elements.sessionCodeInput.value.trim().length > 0;
+
+        // Create session enabled when name is entered
+        this.elements.createSessionBtn.disabled = !hasName;
+
+        // Join session enabled when both name and session code are entered
+        this.elements.joinSessionBtn.disabled = !(hasName && hasSessionCode);
     }
 
     handleCreateSession() {
@@ -50,32 +73,27 @@ class WelcomeScreen {
 
     handleJoinSession() {
         const playerName = this.elements.playerNameInput.value.trim();
-        const sessionId = this.elements.sessionIdInput.value.trim().toUpperCase();
+        const sessionCode = this.elements.sessionCodeInput.value.trim().toUpperCase();
         
         if (!playerName) {
             this.gameController.showError('Please enter your name');
             return;
         }
         
-        if (!sessionId) {
+        if (!sessionCode) {
             this.gameController.showError('Please enter a session code');
             return;
         }
 
-        this.gameController.joinSession(sessionId, playerName);
-    }
-
-    showJoinForm() {
-        this.elements.joinForm.classList.remove('hidden');
-    }
-
-    hideJoinForm() {
-        this.elements.joinForm.classList.add('hidden');
-        this.elements.sessionIdInput.value = '';
+        this.gameController.joinSession(sessionCode, playerName);
     }
 
     show() {
         this.gameController.hideAllScreens();
         document.getElementById('welcome-screen').classList.remove('hidden');
+        // Reset form and button states
+        this.elements.playerNameInput.value = '';
+        this.elements.sessionCodeInput.value = '';
+        this.updateButtonStates();
     }
 }

@@ -20,23 +20,19 @@
                 <h1>🎭 Imposter Game</h1>
                 <p>Can you find the imposter among your friends?</p>
                 
-                <div class="form-group">
-                    <label for="player-name">Your Name:</label>
-                    <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
-                </div>
-                
-                <div class="button-group">
-                    <button id="create-session-btn" class="btn btn-primary">Create New Session</button>
-                    <button id="join-session-btn" class="btn btn-secondary">Join Session</button>
-                </div>
-                
-                <div id="join-form" class="join-form hidden">
+                <div class="welcome-form">
                     <div class="form-group">
-                        <label for="session-id">Session Code:</label>
-                        <input type="text" id="session-id" placeholder="Enter session code" maxlength="8">
+                        <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
                     </div>
-                    <button id="join-confirm-btn" class="btn btn-primary">Join Game</button>
-                    <button id="cancel-join-btn" class="btn btn-secondary">Cancel</button>
+                    
+                    <div class="form-group">
+                        <input type="text" id="session-code" placeholder="Enter session code (optional)" maxlength="8">
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="create-session-btn" class="btn btn-primary" disabled>Create New Session</button>
+                        <button id="join-session-btn" class="btn btn-secondary" disabled>Join Session</button>
+                    </div>
                 </div>
             </div>
         </div>

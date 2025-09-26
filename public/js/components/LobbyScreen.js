@@ -64,7 +64,8 @@ class LobbyScreen {
         if (isHost) {
             this.elements.hostControls.classList.remove('hidden');
             this.elements.waitingMessage.classList.add('hidden');
-            this.elements.startGameBtn.disabled = playerCount < 3;
+            // Allow starting with any number of players - server will validate
+            this.elements.startGameBtn.disabled = false;
         } else {
             this.elements.hostControls.classList.add('hidden');
             this.elements.waitingMessage.classList.remove('hidden');

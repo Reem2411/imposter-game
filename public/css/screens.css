@@ -1,6 +1,56 @@
 /* Welcome Screen */
 #welcome-screen {
-    /* Welcome screen specific styles can be added here */
+    text-align: center;
+}
+
+.welcome-form {
+    max-width: 400px;
+    margin: 10px;
+}
+
+.welcome-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.welcome-form .form-group:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.welcome-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.welcome-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.welcome-form .button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.welcome-form .btn {
+    flex: 1;
+    min-width: 120px;
+    /* max-width: 150px; */
+    white-space: nowrap;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+}
+
+.welcome-form .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Lobby Screen */
@@ -174,12 +224,12 @@
 }
 
 .ready-vote-btn:hover {
-    transform: translateY(-4px);
+    transform: scale(0.95);
     box-shadow: 0 12px 40px rgba(255, 107, 107, 0.4);
 }
 
 .ready-vote-btn:active {
-    transform: translateY(-2px);
+    transform: scale(0.9);
     box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
 }
 
@@ -290,13 +340,13 @@
 }
 
 .refresh-game-btn:hover {
-    transform: translateY(-3px);
+    transform: scale(0.95);
     box-shadow: 0 8px 28px rgba(108, 117, 125, 0.4);
     background: linear-gradient(135deg, #5a6268, #3d4449);
 }
 
 .refresh-game-btn:active {
-    transform: translateY(-1px);
+    transform: scale(0.9);
     box-shadow: 0 4px 16px rgba(108, 117, 125, 0.5);
 }
 
@@ -359,7 +409,7 @@
 }
 
 .voting-player:hover {
-    transform: translateY(-4px);
+    transform: scale(0.95);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     border-color: #667eea;
 }
@@ -372,7 +422,7 @@
 .voting-player .player-name {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
 }
 
 .voting-info {
@@ -467,3 +517,5 @@
         font-size: 0.75rem;
     }
 }
+/* Test comment */
+/* Another test comment */

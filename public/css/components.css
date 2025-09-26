@@ -7,7 +7,7 @@ label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
 }
 
 input[type="text"] {
@@ -45,24 +45,23 @@ input[type="text"]:focus {
 }
 
 .btn-primary {
-    background: #667eea;
+    background: #b4869f;
     color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: #5a6fd8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    background: #9d7089;
+    transform: scale(0.95);
 }
 
 .btn-secondary {
-    background: #6c757d;
+    background: #6b9cc8;
     color: white;
 }
 
 .btn-secondary:hover {
-    background: #5a6268;
-    transform: translateY(-2px);
+    background: #4f7ea7;
+    transform: scale(0.95);
 }
 
 .btn-warning {
@@ -72,7 +71,7 @@ input[type="text"]:focus {
 
 .btn-warning:hover {
     background: #e0a800;
-    transform: translateY(-2px);
+    transform: scale(0.95);
 }
 
 .btn:disabled {

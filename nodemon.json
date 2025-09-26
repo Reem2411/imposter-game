@@ -8,7 +8,13 @@
   "ext": "js,css,html",
   "ignore": [
     "node_modules/**/*",
-    "public/node_modules/**/*"
+    "public/node_modules/**/*",
+    "*.log"
   ],
-  "delay": 1000
+  "delay": 2000,
+  "restartable": "rs",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "legacyWatch": true
 }
