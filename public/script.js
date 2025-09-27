@@ -250,7 +250,8 @@ class ImposterGame {
     }
 
     updateLobby() {
-        document.getElementById('session-code').textContent = this.currentSession;
+
+        document.getElementById('session').textContent = this.currentSession;
         document.getElementById('player-count').textContent = this.players.length;
         
         const playersList = document.getElementById('players-list');

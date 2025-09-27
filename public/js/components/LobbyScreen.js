@@ -11,7 +11,7 @@ class LobbyScreen {
 
     initializeElements() {
         this.elements = {
-            sessionCode: document.getElementById('session-code'),
+            sessionCode: document.getElementById('session'),
             playerCount: document.getElementById('player-count'),
             playersList: document.getElementById('players-list'),
             hostControls: document.getElementById('host-controls'),
@@ -36,8 +36,18 @@ class LobbyScreen {
         const gameState = this.gameController.getGameState();
         
         // Update session info
-        this.elements.sessionCode.textContent = gameState.currentSession;
-        this.elements.playerCount.textContent = gameState.players.length;
+        
+        if (this.elements.sessionCode) {
+            this.elements.sessionCode.textContent = gameState.currentSession || 'Loading...';
+        } else {
+            console.error('sessionCode element not found!');
+        }
+        
+        if (this.elements.playerCount) {
+            this.elements.playerCount.textContent = gameState.players.length;
+        } else {
+            console.error('playerCount element not found!');
+        }
         
         // Update players list
         this.updatePlayersList(gameState.players);

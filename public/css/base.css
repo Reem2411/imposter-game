@@ -16,7 +16,7 @@ body {
 /* Role-based background colors - removed for consistent background */
 
 .container {
-    max-width: 800px;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
 }

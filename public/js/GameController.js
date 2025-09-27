@@ -52,7 +52,6 @@ class GameController {
         });
 
         this.socketManager.on('game-started', (data) => {
-            console.log('GameController received game-started event:', data);
             this.gameScreen.show(data);
         });
 

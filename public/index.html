@@ -18,7 +18,6 @@
         <div id="welcome-screen" class="screen">
             <div class="container">
                 <h1>🎭 Imposter Game</h1>
-                <p>Can you find the imposter among your friends?</p>
                 
                 <div class="welcome-form">
                     <div class="form-group">
@@ -41,21 +40,60 @@
         <div id="lobby-screen" class="screen hidden">
             <div class="container">
                 <h2>Game Lobby</h2>
-                <div class="session-info">
-                    <p><strong>Session Code:</strong> <span id="session-code"></span></p>
-                    <p><strong>Players:</strong> <span id="player-count">1</span>/15</p>
-                </div>
                 
-                <div id="players-list" class="players-list">
-                    <!-- Players will be added here dynamically -->
-                </div>
-                
-                <div id="host-controls" class="host-controls hidden">
-                    <button id="start-game-btn" class="btn btn-primary" disabled>Start Game (Need 3+ players)</button>
-                </div>
-                
-                <div id="waiting-message" class="waiting-message">
-                    <p>Waiting for host to start the game...</p>
+                <div class="lobby-content">
+                    <!-- Left Column: Session Info -->
+                    <div class="lobby-left">
+                        <div class="players-section">
+                            <h3>Session: <span id="session" class="session-code">ABC123</span></h3>
+                            <h3>Players (<span id="player-count">1</span>/15)</h3>
+                            <div id="players-list" class="players-list">
+                                <!-- Players will be added here dynamically -->
+                            </div>
+                        </div>
+                        
+                        <div id="host-controls" class="host-controls hidden">
+                            <button id="start-game-btn" class="btn btn-primary" disabled>Start Game</button>
+                        </div>
+                        
+                        <div id="waiting-message" class="waiting-message">
+                            <p>Waiting for host to start the game...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Game Instructions -->
+                    <div class="lobby-right">
+                        <div class="game-instructions">
+                            <h3>How to Play</h3>
+                            <div class="instruction-content">
+                                <div class="instruction-step">
+                                    <h4>🎯 Objective</h4>
+                                    <p>Find the imposter(s) among your teammates!</p>
+                                </div>
+                                
+                                <div class="instruction-step">
+                                    <h4>👥 For Players</h4>
+                                    <p>You will see the secret word on your screen. Give a one-word clue that proves you know the secret word without revealing it too obviously. </p>
+                                    <p>Ex. For the word "piano", "black" or "hands" are good clues, but "instrument" is a giveaway. Be creative!</p>
+                                </div>
+                                
+                                <div class="instruction-step">
+                                    <h4>🎭 For Imposters</h4>
+                                    <p>You don't know the word. Listen to clues and try to play along without being caught.</p>
+                                </div>
+                                
+                                <div class="instruction-step">
+                                    <h4>🗳️ Voting</h4>
+                                    <p>When ready, vote for who you think is the imposter. Majority vote wins.</p>
+                                </div>
+                                
+                                <div class="instruction-step">
+                                    <h4>🏆 Winning</h4>
+                                    <p>Players win if they vote out the imposter. Imposters win if they avoid detection.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
