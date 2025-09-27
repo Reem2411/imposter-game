@@ -144,13 +144,13 @@
     color: #667eea;
 }
 
-.players-list {
-    background: rgba(255, 255, 255, 0.9);
+/* .players-list {
+    background: rgba(255, 255, 255, 0.9); 
     padding: 1.5rem;
     border-radius: 12px;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem; 
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .player-item {
     display: flex;
@@ -159,7 +159,8 @@
     margin-bottom: 0.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #020c3a;
+    color: #020c3a;
 }
 
 .player-item.host {
@@ -628,3 +629,4 @@
 /* Auto-refresh test */
 /* Live reload test - Fri Sep 26 14:28:32 EDT 2025 */
 /* Testing session code display */
+/* Host player fix test */

@@ -258,7 +258,23 @@ io.on('connection', (socket) => {
     const session = new Session(socket.id, data.playerName);
     sessions.set(session.id, session);
     socket.join(session.id);
+    
+    // Add the host as the first player
+    session.addPlayer(socket.id, data.playerName);
+    // Mark the host as the host
+    const hostPlayer = session.players.get(socket.id);
+    if (hostPlayer) {
+      hostPlayer.isHost = true;
+    }
+    
     socket.emit('session-created', { sessionId: session.id });
+    
+    // Emit player-joined event so the host appears in the players list
+    socket.emit('player-joined', {
+      playerName: data.playerName,
+      players: Array.from(session.players.values())
+    });
+    
     console.log(`Session created: ${session.id} by ${data.playerName}`);
   });
 
